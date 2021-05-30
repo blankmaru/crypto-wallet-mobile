@@ -3,76 +3,131 @@
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 
-import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import {Ionicons} from '@expo/vector-icons';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import {BottomTabParamList, HomeParamList, MarketParamList, PortfolioParamList, ProfileParamList} from '../types';
+import HomeScreen from "../screens/HomeScreen";
+import PortfolioScreen from "../screens/Portfolio";
+import MarketScreen from "../screens/MarketScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import TabBarIconComponent from "./TabBarIcon";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
+    const colorScheme = useColorScheme();
 
-  return (
-    <BottomTab.Navigator
-      initialRouteName="TabOne"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
-      <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
-        }}
-      />
-    </BottomTab.Navigator>
-  );
+    return (
+        <BottomTab.Navigator
+            initialRouteName="Home"
+            tabBarOptions={{activeTintColor: Colors[colorScheme].tint,
+                showLabel: false,
+                style: {
+                    position: 'absolute',
+                    bottom: 25,
+                    left: 20,
+                    right: 20,
+                    elevation: 0,
+                    borderRadius: 15,
+                    height: 90
+                }}}>
+            <BottomTab.Screen
+                name="Home"
+                component={HomeNavigator}
+                options={{
+                    tabBarIcon: ({focused}) => <TabBarIconComponent focused={focused} title={'Home'} icon={'home-outline'} />,
+                }}
+            />
+            <BottomTab.Screen
+                name="Portfolio"
+                component={PortfolioNavigator}
+                options={{
+                    tabBarIcon: ({focused}) => <TabBarIconComponent focused={focused} title={'Portfolio'} icon={'briefcase-outline'} />,
+                }}
+            />
+            <BottomTab.Screen
+                name="Market"
+                component={MarketNavigator}
+                options={{
+                    tabBarIcon: ({focused}) => <TabBarIconComponent focused={focused} title={'Market'} icon={'list-outline'} />,
+                }}
+            />
+            <BottomTab.Screen
+                name="Profile"
+                component={ProfileNavigator}
+                options={{
+                    tabBarIcon: ({focused}) => <TabBarIconComponent focused={focused} title={'Profile'} icon={'person-outline'} />,
+                }}
+            />
+        </BottomTab.Navigator>
+    );
 }
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
 function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+    return <Ionicons size={30} style={{marginBottom: -3}} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const HomeStack = createStackNavigator<HomeParamList>();
 
-function TabOneNavigator() {
-  return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
-      />
-    </TabOneStack.Navigator>
-  );
+function HomeNavigator() {
+    return (
+        <HomeStack.Navigator screenOptions={{headerShown: false}}>
+            <HomeStack.Screen
+                name="HomeScreen"
+                component={HomeScreen}
+                options={{headerTitle: 'Home'}}
+            />
+        </HomeStack.Navigator>
+    );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const PortfolioStack = createStackNavigator<PortfolioParamList>();
 
-function TabTwoNavigator() {
-  return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
-      />
-    </TabTwoStack.Navigator>
-  );
+function PortfolioNavigator() {
+    return (
+        <PortfolioStack.Navigator screenOptions={{headerShown: false}}>
+            <PortfolioStack.Screen
+                name="PortfolioScreen"
+                component={PortfolioScreen}
+                options={{headerTitle: 'Portfolio'}}
+            />
+        </PortfolioStack.Navigator>
+    );
+}
+
+const MarketStack = createStackNavigator<MarketParamList>();
+
+function MarketNavigator() {
+    return (
+        <MarketStack.Navigator screenOptions={{headerShown: false}}>
+            <MarketStack.Screen
+                name="MarketScreen"
+                component={MarketScreen}
+                options={{headerTitle: 'Market'}}
+            />
+        </MarketStack.Navigator>
+    );
+}
+
+const ProfileStack = createStackNavigator<ProfileParamList>();
+
+function ProfileNavigator() {
+    return (
+        <ProfileStack.Navigator screenOptions={{headerShown: false}}>
+            <ProfileStack.Screen
+                name="ProfileScreen"
+                component={ProfileScreen}
+                options={{headerTitle: 'Profile'}}
+            />
+        </ProfileStack.Navigator>
+    );
 }
