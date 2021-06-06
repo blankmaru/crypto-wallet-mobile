@@ -93,7 +93,7 @@ export function getCoinMarket(currency = 'usd', orderBy = 'market_cap_desc',
                               sparkline = true, priceChangePerc = '7d',
                               perPage = 10, page = 1) {
     return (dispatch: Dispatch) => {
-        dispatch(getHoldingsBegin());
+        dispatch(getCoinMarketBegin());
 
         let apiURL = `https://api.coingecko.com/api/v3/coins/markets?
         vs_currency=${currency}&order=${orderBy}&per_page=${perPage}&page=${page}&sparkline=${sparkline}&

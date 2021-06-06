@@ -28,12 +28,6 @@ export default function BottomTabNavigator() {
             tabBarOptions={{activeTintColor: Colors[colorScheme].tint,
                 showLabel: false,
                 style: {
-                    position: 'absolute',
-                    bottom: 25,
-                    left: 20,
-                    right: 20,
-                    elevation: 0,
-                    borderRadius: 15,
                     height: 90
                 }}}>
             <BottomTab.Screen
@@ -54,7 +48,7 @@ export default function BottomTabNavigator() {
                 name="Market"
                 component={MarketNavigator}
                 options={{
-                    tabBarIcon: ({focused}) => <TabBarIconComponent focused={focused} title={'Market'} icon={'list-outline'} />,
+                    tabBarIcon: ({focused}) => <TabBarIconComponent focused={focused} title={'Market'} icon={'stats-chart-outline'} />,
                 }}
             />
             <BottomTab.Screen
